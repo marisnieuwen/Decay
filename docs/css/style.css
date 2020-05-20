@@ -8,8 +8,13 @@ body {
 game * {
     position: absolute;
     display: block;
-    margin: 0px;
-    padding: 0px;
+    margin:0px; padding:0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
+}
+
+worm {
+    background-image: url(../images/worm.png);
+    width:64px; height:64px;
+    cursor: pointer;
 }

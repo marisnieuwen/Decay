@@ -1,5 +1,4 @@
 class Game {
-
     // Global variables
     private player : Player 
     private worm : Worm 
@@ -37,4 +36,5 @@ class Game {
 }
 
 // Creates new Game
+
 window.addEventListener("load", () => new Game())
