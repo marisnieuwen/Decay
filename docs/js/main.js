@@ -1,6 +1,8 @@
 class Game {
     constructor() {
-        let worm = new Worm();
+        for (let i = 0; i < 100; i++) {
+            let worm = new Worm();
+        }
     }
 }
 window.addEventListener("load", () => new Game());

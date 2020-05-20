@@ -2,7 +2,10 @@ class Game {
         
     constructor() {
         
-        let worm : Worm = new Worm()
+        for (let i = 0; i < 100; i++) {
+            
+            let worm : Worm = new Worm()
+        }
     }
 } 
 
