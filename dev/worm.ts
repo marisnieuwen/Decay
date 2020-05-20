@@ -17,8 +17,8 @@ class Worm {
     }
 
     changePosition() {
-        let x = Math.random() * (window.innerWidth - this.element.clientWidth)
-        let y = Math.random() * (window.innerHeight - this.element.clientHeight)
+        let x = 700
+        let y = 476
         this.element.style.transform = `translate(${x}px, ${y}px)`
     }
 
