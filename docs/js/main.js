@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.player = new Player();
-        this.worms = new Worms();
+        this.worm = new Worm();
         this.background = new Background();
         this.platform = new Platform();
         this.score = new Score();
@@ -9,11 +9,13 @@ class Game {
     }
     gameLoop() {
         this.player.update();
-        this.worms.update();
+        this.worm.update();
         this.background.update();
         this.platform.update();
         this.score.update();
         requestAnimationFrame(() => this.gameLoop());
+    }
+    drawGame() {
     }
 }
 window.addEventListener("load", () => new Game());

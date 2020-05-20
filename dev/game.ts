@@ -1,8 +1,8 @@
 class Game {
 
-    // Initialize objects
+    // Global variables
     private player : Player 
-    private worms : Worms 
+    private worm : Worm 
     private background : Background
     private platform : Platform
     private score : Score
@@ -10,7 +10,7 @@ class Game {
     constructor() {
         // Makes new objects
         this.player = new Player()
-        this.worms = new Worms() 
+        this.worm = new Worm() 
         this.background = new Background() 
         this.platform = new Platform() 
         this.score = new Score()
@@ -22,7 +22,7 @@ class Game {
     gameLoop(){
         // Updates the screen 
         this.player.update()
-        this.worms.update()
+        this.worm.update()
         this.background.update()
         this.platform.update()
         this.score.update()
@@ -31,6 +31,9 @@ class Game {
         requestAnimationFrame(() => this.gameLoop())
     }
 
+    drawGame() {
+
+    }
 }
 
 // Creates new Game
