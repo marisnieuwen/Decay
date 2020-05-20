@@ -1,12 +1,13 @@
-class Pineapple {
+class Worm {
 
     div: HTMLElement
     element: HTMLElement
 
     constructor() {
 
-        console.log("Hallo!")
-        this.element = document.createElement("pineapple")
+        console.log("Er is een worm!")
+        this.element = document.createElement("worm")
+        this.element.addEventListener("click", () => this.killWorm())
 
         this.changePosition()
 
@@ -20,4 +21,9 @@ class Pineapple {
         let y = Math.random() * (window.innerHeight - this.element.clientHeight)
         this.element.style.transform = `translate(${x}px, ${y}px)`
     }
+
+    killWorm() {
+        this.element.remove()
+    }
+    
 }
