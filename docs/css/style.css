@@ -1,12 +1,4 @@
 
-/* player */
-
-player{
-    background-image: url(../images/decay\ gal\ stationary\ yas1.png);
-    width:130px; height: 110px;
-    cursor: pointer;
-}
-
 body{
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -19,4 +11,12 @@ game * {
     margin: 0px; padding: 0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
+}
+
+/* player */
+
+player{
+    background-image: url(../images/player1.png);
+    width: 130px; height: 110px;
+    cursor: pointer;
 }

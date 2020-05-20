@@ -1,58 +1,64 @@
 class Player {
     
-    player : HTMLElement
+    private player : HTMLElement
+    
+    private x: number
+    private y: number 
 
-    leftSpeed : number = 0
-    rightSpeed : number = 0
-    downSpeed : number = 0
-    upSpeed : number = 0
+    private downSpeed: number = 0
+    private upSpeed: number = 0
+    private rightSpeed: number = 0
+    private leftSpeed: number = 0
+
+
 
     constructor(){
-        this.createPlayer()
-
-    }
-
-    createPlayer(){
         this.player = document.createElement("player")
-        
-        this.player.addEventListener("keydown", (e:KeyboardEvent) => this.onKeyDown(e))
-        this.player.addEventListener("keyup", (e:KeyboardEvent) => this.onKeyUp(e))
         
         let game = document.getElementsByTagName("game")[0]
         game.appendChild(this.player)
+
+        window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
+        window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 
-    onKeyDown(event:KeyboardEvent):void {
-        switch(event.keyCode){
-        case 65:
-            this.upSpeed = 5
-            break
-        case 68:
-            this.downSpeed = 5
-            break
-        case 87:
-            this.leftSpeed = 5
-            break
-        case 83:
-            this.rightSpeed = 5
-            break
+    onKeyDown(e: KeyboardEvent): void {
+        switch (e.keyCode) {
+            case 38:
+                this.upSpeed = 10
+                break
+            case 40:
+                this.downSpeed = 10
+                break
+            case 39:
+                this.rightSpeed = 10
+                break
+            case 37:
+                this.leftSpeed = 10
+                break
         }
     }
-    
-    onKeyUp(event:KeyboardEvent):void {
-        switch(event.keyCode){
-        case 65:
-            this.upSpeed = 0
-            break
-        case 68:
-            this.downSpeed = 0
-            break
-        case 87:
-            this.leftSpeed = 0
-            break
-        case 83:
-            this.rightSpeed = 0
-            break
+
+    onKeyUp(e: KeyboardEvent): void {
+        console.log(e.keyCode)
+        switch (e.keyCode) {
+            case 38:
+                this.upSpeed = 0
+                break
+            case 40:
+                this.downSpeed = 0
+                break
+            case 39:
+                this.rightSpeed = 0
+                break
+            case 37:
+                this.leftSpeed = 0
+                break
         }
+    }
+
+    public update(){
+
+        this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 }
