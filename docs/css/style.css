@@ -1,0 +1,15 @@
+body { 
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+}
+
+game * {
+    position: absolute;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
