@@ -1,11 +1,12 @@
 //collision for platform//
 
-class platform {
+class Platform {
     private div:HTMLElement
     
     constructor() {
-         this.div = document.createElement("car")
-         document.body.appendChild(this.div)
+         this.div = document.createElement("platform")
+         let game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.div);
      }
  
      public getRectangle() {
@@ -14,10 +15,10 @@ class platform {
  }
  // two objects collide with eachother//
 
- class Game {
+ class CollisionObjects {
     constructor(){
-       let c1 = new platform()
-       let c2 = new platform()
+       let c1 = new Platform()
+       let c2 = new Platform()
        
        let hit = this.checkCollision(c1.getRectangle(), c2.getRectangle())
        console.log("platform 1 hits platform 2 ? " + hit)
