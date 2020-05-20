@@ -1,12 +1,11 @@
-class Pineapple {
+class Worm {
 
     div: HTMLElement
     element: HTMLElement
 
     constructor() {
 
-        console.log("Hallo!")
-        this.element = document.createElement("pineapple")
+        this.element = document.createElement("worm")
 
         this.changePosition()
 
