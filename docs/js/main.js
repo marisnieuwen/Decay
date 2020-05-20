@@ -13,8 +13,6 @@ class Player {
         this.player = document.createElement("player");
         let game = document.getElementsByTagName("game")[0];
         game.appendChild(this.player);
-        this.x += 3;
-        this.y += 10;
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
         window.addEventListener("keyup", (e) => this.onKeyUp(e));
     }
