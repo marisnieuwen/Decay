@@ -2,6 +2,6 @@
 
 function loop()
 {
-    xPos--;
-    document.getElementById('background').style.backgroundPosition = xPos + 'px 0px';
+    let yPos = 100;
+    document.getElementByTagName('background').style.backgroundPosition = yPos + 'px 0px';
 }
