@@ -1,3 +1,22 @@
+class Game {
+    constructor() {
+        this.player = new Player();
+        this.worms = new Worms();
+        this.background = new Background();
+        this.platform = new Platform();
+        this.score = new Score();
+        this.gameLoop();
+    }
+    gameLoop() {
+        this.player.update();
+        this.worms.update();
+        this.background.update();
+        this.platform.update();
+        this.score.update();
+        requestAnimationFrame(() => this.gameLoop());
+    }
+}
+window.addEventListener("load", () => new Game());
 class Pineapple {
     constructor() {
         console.log("Hallo!");
