@@ -1,3 +1,4 @@
+
 class Player {
     
     private player : HTMLElement
@@ -5,12 +6,15 @@ class Player {
     private x: number
     private y: number 
 
+    private downkey: number = 0
+    private upkey: number = 0
+    private rightkey: number = 0
+    private leftkey: number = 0
+
     private downSpeed: number = 0
     private upSpeed: number = 0
     private rightSpeed: number = 0
-    private leftSpeed: number = 0
-
-
+    private leftSpeed: number = 0 
 
     constructor(){
         this.player = document.createElement("player")
@@ -18,47 +22,67 @@ class Player {
         let game = document.getElementsByTagName("game")[0]
         game.appendChild(this.player)
 
+        this.upkey = 38 
+        this.downkey = 40
+        this.rightkey = 39
+        this.leftkey = 37
+
+        this.x = 200
+        this.y = 200
+
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 
-    onKeyDown(e: KeyboardEvent): void {
+    public getRectangle(){
+        return this.player.getBoundingClientRect()
+    }
+
+    private onKeyDown(e: KeyboardEvent): void {
         switch (e.keyCode) {
-            case 38:
-                this.upSpeed = 10
+            case this.upkey:
+                this.upSpeed = 3
                 break
-            case 40:
-                this.downSpeed = 10
+            case this.downkey:
+                this.downSpeed = 3
                 break
-            case 39:
-                this.rightSpeed = 10
+            case this.rightkey:
+                this.rightSpeed = 3
                 break
-            case 37:
-                this.leftSpeed = 10
+            case this.leftkey:
+                this.leftSpeed = 3
                 break
         }
     }
 
-    onKeyUp(e: KeyboardEvent): void {
-        console.log(e.keyCode)
+    private onKeyUp(e: KeyboardEvent): void {
         switch (e.keyCode) {
-            case 38:
+            case this.upkey:
                 this.upSpeed = 0
                 break
-            case 40:
+            case this.downkey:
                 this.downSpeed = 0
                 break
-            case 39:
+            case this.rightkey:
                 this.rightSpeed = 0
                 break
-            case 37:
+            case this.leftkey:
                 this.leftSpeed = 0
                 break
         }
     }
 
     public update(){
+        let newY = this.y - this.upSpeed + this.downSpeed
+        if (newY > 0 && newY + 100 < window.innerHeight) this.y = newY
+
+        let newX = this.x - this.leftSpeed + this.rightSpeed
+        if (newX > 0 && newX + 100 < window.innerHeight) this.x = newX
 
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
+    }
+
+    public update2(){
+        this.downSpeed = 0
     }
 }
