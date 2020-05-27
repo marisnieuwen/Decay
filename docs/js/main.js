@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.platform = [];
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 40; i++) {
             this.platform.push(new Platform());
         }
         this.player = new Player();
@@ -99,10 +99,10 @@ class Player {
     }
     update() {
         let newY = this.y - this.upSpeed + this.downSpeed;
-        if (newY > 0 && newY + 100 < window.innerHeight)
+        if (newY > 0 && newY < window.innerHeight)
             this.y = newY;
         let newX = this.x - this.leftSpeed + this.rightSpeed;
-        if (newX > 0 && newX + 100 < window.innerHeight)
+        if (newX > 0 && newX < window.innerWidth)
             this.x = newX;
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }

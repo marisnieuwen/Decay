@@ -3,11 +3,9 @@ class Game{
     private platform : Platform[] = []
 
     constructor(){
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 40; i++) {
             this.platform.push(new Platform())
         }
-
-
 
         this.player = new Player()
 
@@ -22,7 +20,6 @@ class Game{
                 this.player.update2()
             }
         }
-
 
         this.player.update()
 

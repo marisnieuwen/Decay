@@ -74,10 +74,10 @@ class Player {
 
     public update(){
         let newY = this.y - this.upSpeed + this.downSpeed
-        if (newY > 0 && newY + 100 < window.innerHeight) this.y = newY
+        if (newY > 0 && newY < window.innerHeight) this.y = newY
 
         let newX = this.x - this.leftSpeed + this.rightSpeed
-        if (newX > 0 && newX + 100 < window.innerHeight) this.x = newX
+        if (newX > 0 && newX < window.innerWidth) this.x = newX
 
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
