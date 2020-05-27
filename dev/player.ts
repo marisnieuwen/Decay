@@ -4,7 +4,7 @@ class Player {
     
     private x: number = 0
     private y: number = 0
-    private dy: number = 0
+    private jumpy: number = 0
 
     //input
     private downkey: number
@@ -57,7 +57,7 @@ class Player {
                 if(!this.jumping) {
                     this.jumping = true
                     console.log("jumped")
-                    this.dy = this.jumpHeight
+                    this.jumpy = this.jumpHeight
                     }
             case this.downkey:
                 this.downSpeed = 3
@@ -101,14 +101,14 @@ class Player {
 
 
         if (this.jumping) {
-            this.dy += this.gravity
-            this.y += this.dy
+            this.jumpy += this.gravity
+            this.y += this.jumpy
         }
         // checks if player is at bottom of screen
         // (needs to change)
         if (this.y >= window.innerHeight - this.player.clientHeight) {
             this.jumping = false
-            this.dy = 0
+            this.jumpy = 0
         }
 
         // update player posisition

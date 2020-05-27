@@ -42,7 +42,7 @@ class Player {
     constructor() {
         this.x = 0;
         this.y = 0;
-        this.dy = 0;
+        this.jumpy = 0;
         this.downSpeed = 0;
         this.upSpeed = 0;
         this.rightSpeed = 0;
@@ -71,7 +71,7 @@ class Player {
                 if (!this.jumping) {
                     this.jumping = true;
                     console.log("jumped");
-                    this.dy = this.jumpHeight;
+                    this.jumpy = this.jumpHeight;
                 }
             case this.downkey:
                 this.downSpeed = 3;
@@ -101,16 +101,19 @@ class Player {
         }
     }
     update() {
+        let newY = this.y - this.upSpeed + this.downSpeed;
+        if (newY > 0 && newY + 100 < window.innerHeight)
+            this.y = newY;
         let newX = this.x - this.leftSpeed + this.rightSpeed;
         if (newX > 0 && newX + 100 < window.innerHeight)
             this.x = newX;
         if (this.jumping) {
-            this.dy += this.gravity;
-            this.y += this.dy;
+            this.jumpy += this.gravity;
+            this.y += this.jumpy;
         }
         if (this.y >= window.innerHeight - this.player.clientHeight) {
             this.jumping = false;
-            this.dy = 0;
+            this.jumpy = 0;
         }
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
