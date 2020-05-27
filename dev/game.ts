@@ -1,37 +1,41 @@
-class Game {
-    // Global variables
-    private player : Player 
-    private worm : Worm 
-    private background : Background
-    private platform : Platform
-    private score : Score
+class Game{
+    private player : Player
+    private platform : Platform[] = []
 
-    constructor() {
-        // Makes new objects
+    constructor(){
+        for (let i = 0; i < 1; i++) {
+            this.platform.push(new Platform())
+        }
+
+
+
         this.player = new Player()
-        this.worm = new Worm() 
-        this.background = new Background() 
-        this.platform = new Platform() 
-        this.score = new Score()
 
-        //Update frames
-        this.gameLoop() 
+        this.gameloop()
     }
+    
+    private gameloop(){
+            for (const platform of this.platform) {
+                platform.update()
 
-    gameLoop(){
-        // Updates the screen 
+                if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
+                    this.player.update2()
+                }
+            }
+
+
         this.player.update()
-        this.worm.update()
-        this.background.update()
-        this.platform.update()
-        this.score.update()
 
-        // Resfreshes the screen
-        requestAnimationFrame(() => this.gameLoop())
+        requestAnimationFrame(()=>this.gameloop())
     }
-
+    
+    private checkCollision(a: ClientRect, b: ClientRect) : boolean {
+        return (a.left <= b.right &&
+            b.left <= a.right &&
+            a.top <= b.bottom &&
+            b.top <= a.bottom)
+     }
+     
 }
-
-// Creates new Game
 
 window.addEventListener("load", () => new Game())
