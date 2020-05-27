@@ -1,14 +1,17 @@
 class Game{
+
+    // global variables
     private player : Player
     private platform : Platform[] = []
 
     constructor(){
+        // create platform
         for (let i = 0; i < 1; i++) {
             this.platform.push(new Platform())
         }
 
 
-
+        // create player
         this.player = new Player()
 
         this.gameloop()
@@ -18,6 +21,7 @@ class Game{
             for (const platform of this.platform) {
                 platform.update()
 
+                //collision check and update
                 if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
                     this.player.update2()
                 }
