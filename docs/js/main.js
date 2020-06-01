@@ -1,11 +1,12 @@
 class Game {
     constructor() {
         this.platform = [];
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 5; i++) {
             this.platform.push(new Platform());
         }
         this.player = new Player();
         this.gameloop();
+        this.loop();
     }
     gameloop() {
         for (const platform of this.platform) {

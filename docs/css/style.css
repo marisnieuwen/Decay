@@ -5,6 +5,11 @@ body{
     margin: 0px; padding: 0px;
 }
 
+#background {
+    background-image: url();
+    background-repeat: repeat;
+}
+
 game * {
     position: absolute;
     display: block;

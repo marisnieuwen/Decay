@@ -1,6 +1,5 @@
 
 class Player {
-    
     private player : HTMLElement
     
     private x: number
@@ -22,6 +21,7 @@ class Player {
         let game = document.getElementsByTagName("game")[0]
         game.appendChild(this.player)
 
+        //Keys
         this.upkey = 38 
         this.downkey = 40
         this.rightkey = 39

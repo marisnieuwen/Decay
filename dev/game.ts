@@ -1,15 +1,22 @@
 class Game{
+
     private player : Player
     private platform : Platform[] = []
 
+    private xPos : number
+
     constructor(){
-        for (let i = 0; i < 40; i++) {
+
+        //Platforms
+        for (let i = 0; i < 5; i++) {
             this.platform.push(new Platform())
         }
 
+        //Player
         this.player = new Player()
 
         this.gameloop()
+        this.loop()
     }
     
     private gameloop(){
@@ -25,6 +32,7 @@ class Game{
 
         requestAnimationFrame(()=>this.gameloop())
     }
+
     
     private checkCollision(a: ClientRect, b: ClientRect) : boolean {
         return (a.left <= b.right &&
