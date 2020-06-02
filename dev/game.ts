@@ -8,7 +8,7 @@ class Game{
     constructor(){
 
         //Platforms
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 20; i++) {
             this.platform.push(new Platform())
         }
 

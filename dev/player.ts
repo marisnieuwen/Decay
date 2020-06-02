@@ -41,16 +41,16 @@ class Player {
     private onKeyDown(e: KeyboardEvent): void {
         switch (e.keyCode) {
             case this.upkey:
-                this.upSpeed = 3
+                this.upSpeed = 3.5
                 break
             case this.downkey:
-                this.downSpeed = 3
+                this.downSpeed = 3.5
                 break
             case this.rightkey:
-                this.rightSpeed = 3
+                this.rightSpeed = 3.5
                 break
             case this.leftkey:
-                this.leftSpeed = 3
+                this.leftSpeed = 3.5
                 break
         }
     }
