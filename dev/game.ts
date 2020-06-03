@@ -8,7 +8,7 @@ class Game{
     constructor(){
 
         //Platforms
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 40; i++) {
             this.platform.push(new Platform())
         }
 
@@ -16,7 +16,7 @@ class Game{
         this.player = new Player()
 
         this.gameloop()
-        this.loop()
+
     }
     
     private gameloop(){

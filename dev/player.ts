@@ -16,20 +16,22 @@ class Player {
     private leftSpeed: number = 0 
 
     constructor(){
+        //create player element
         this.player = document.createElement("player")
-        
         let game = document.getElementsByTagName("game")[0]
         game.appendChild(this.player)
 
-        //Keys
+        //assign keys
         this.upkey = 38 
         this.downkey = 40
         this.rightkey = 39
         this.leftkey = 37
 
+        //temporary placement
         this.x = 200
         this.y = 200
 
+        //events
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
@@ -38,6 +40,7 @@ class Player {
         return this.player.getBoundingClientRect()
     }
 
+    //what happens when you push the assigned key
     private onKeyDown(e: KeyboardEvent): void {
         switch (e.keyCode) {
             case this.upkey:
@@ -55,6 +58,7 @@ class Player {
         }
     }
 
+    //what happens when you let the assigned key go
     private onKeyUp(e: KeyboardEvent): void {
         switch (e.keyCode) {
             case this.upkey:

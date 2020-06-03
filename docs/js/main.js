@@ -1,20 +1,22 @@
 class Game {
     constructor() {
         this.platform = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 40; i++) {
             this.platform.push(new Platform());
         }
         this.player = new Player();
         this.gameloop();
-        this.loop();
     }
     gameloop() {
         for (const platform of this.platform) {
             platform.update();
-            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
+            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle()) == true) {
                 this.player.update2();
+                this.player.jumping = false;
+                this.player.jumpy = 0;
             }
         }
+        this.player.jump;
         this.player.update();
         requestAnimationFrame(() => this.gameloop());
     }
