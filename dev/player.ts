@@ -76,7 +76,7 @@ class Player {
         }
     }
 
-    public update(){
+    public move(){
         let newY = this.y - this.upSpeed + this.downSpeed
         if (newY > 0 && newY < window.innerHeight) this.y = newY
 
@@ -86,7 +86,7 @@ class Player {
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
-    public update2(){
+    public stopMove(){
         this.downSpeed = 0
     }
 }

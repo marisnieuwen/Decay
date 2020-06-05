@@ -3,16 +3,14 @@ class Game{
     private player : Player
     private platform : Platform[] = []
 
-    private xPos : number
-
     constructor(){
 
-        //Platforms
+        //create platforms
         for (let i = 0; i < 40; i++) {
             this.platform.push(new Platform())
         }
 
-        //Player
+        //create player
         this.player = new Player()
 
         this.gameloop()
@@ -20,15 +18,16 @@ class Game{
     }
     
     private gameloop(){
-        for (const platform of this.platform) {
-            platform.update()
 
+        //what to do when there is collision between platforms and player
+        for (const platform of this.platform) {
+            platform.placement()
             if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
-                this.player.update2()
+                this.player.stopMove()
             }
         }
 
-        this.player.update()
+        this.player.move()
 
         requestAnimationFrame(()=>this.gameloop())
     }

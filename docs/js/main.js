@@ -9,15 +9,12 @@ class Game {
     }
     gameloop() {
         for (const platform of this.platform) {
-            platform.update();
-            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle()) == true) {
-                this.player.update2();
-                this.player.jumping = false;
-                this.player.jumpy = 0;
+            platform.placement();
+            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
+                this.player.stopMove();
             }
         }
-        this.player.jump;
-        this.player.update();
+        this.player.move();
         requestAnimationFrame(() => this.gameloop());
     }
     checkCollision(a, b) {
@@ -39,7 +36,7 @@ class Platform {
     getRectangle() {
         return this.platform.getBoundingClientRect();
     }
-    update() {
+    placement() {
         this.platform.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 }
@@ -100,7 +97,7 @@ class Player {
                 break;
         }
     }
-    update() {
+    move() {
         let newY = this.y - this.upSpeed + this.downSpeed;
         if (newY > 0 && newY < window.innerHeight)
             this.y = newY;
@@ -109,7 +106,7 @@ class Player {
             this.x = newX;
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
-    update2() {
+    stopMove() {
         this.downSpeed = 0;
     }
 }
