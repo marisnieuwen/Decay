@@ -16,10 +16,12 @@ class Platform {
         this.y = Math.random() * window.innerHeight
     }
 
+    //get the boundaries from the pic for collision
     public getRectangle(){
         return this.platform.getBoundingClientRect()
     }
 
+    //place the platforms 
     public placement(){
         this.platform.style.transform = `translate(${this.x}px, ${this.y}px)`
     }

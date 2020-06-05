@@ -27,12 +27,13 @@ class Game{
             }
         }
 
+        //let the player move within the game
         this.player.move()
-
+        
         requestAnimationFrame(()=>this.gameloop())
     }
 
-    
+    //check collision
     private checkCollision(a: ClientRect, b: ClientRect) : boolean {
         return (a.left <= b.right &&
             b.left <= a.right &&

@@ -36,6 +36,7 @@ class Player {
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 
+    //get the boundaries from the pic for collision
     public getRectangle(){
         return this.player.getBoundingClientRect()
     }
@@ -76,6 +77,8 @@ class Player {
         }
     }
 
+
+    //movement of character
     public move(){
         let newY = this.y - this.upSpeed + this.downSpeed
         if (newY > 0 && newY < window.innerHeight) this.y = newY
@@ -86,6 +89,7 @@ class Player {
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
+    //stop the movement (see class Game for where this is used)
     public stopMove(){
         this.downSpeed = 0
     }
