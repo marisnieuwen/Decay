@@ -31,12 +31,12 @@ class Player {
         this.x = 200
         this.y = 200
 
-        //events
+        //key events
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 
-    //get the boundaries from the pic for collision
+    //get the boundaries from the image
     public getRectangle(){
         return this.player.getBoundingClientRect()
     }
@@ -89,7 +89,7 @@ class Player {
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
-    //stop the movement (see class Game for where this is used)
+    //stop the downwards movement 
     public stopMove(){
         this.downSpeed = 0
     }

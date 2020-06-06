@@ -16,7 +16,7 @@ class Platform {
         this.y = Math.random() * window.innerHeight
     }
 
-    //get the boundaries from the pic for collision
+    //get the boundaries from the image
     public getRectangle(){
         return this.platform.getBoundingClientRect()
     }
