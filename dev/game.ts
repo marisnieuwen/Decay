@@ -3,6 +3,7 @@ class Game{
     private player : Player
     private platform : Platform[] = []
     private worm : Worm[] = []
+    private spit : Spit[] = []
 
     constructor(){
 
@@ -16,11 +17,15 @@ class Game{
 
         //create worm
         for (let i = 0; i < 1; i++){
-            this.worm.push(new Worm(i * 45, -47))
+            this.worm.push(new Worm(i, -48))
+        }
+
+        //create spit
+        for (let i = 0; i < 5; i++){
+            this.spit.push(new Spit(i, -48))
         }
 
         this.gameloop()
-
     }
     
     private gameloop(){

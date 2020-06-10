@@ -7,8 +7,6 @@ class Platform {
     private worms : Worm[] = []
     static x: number
     static y: number
-    
-    public get worm(): HTMLElement {return this.worm}
 
     constructor(){
         //create platforms

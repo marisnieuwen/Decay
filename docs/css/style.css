@@ -35,6 +35,13 @@ worm{
     width: 36px; height: 48px;
 }
 
+/*spit*/
+
+spit{
+    background-image: url(../images/spitball.png);
+    width: 16px; height: 16px;
+}
+
 /* platform */
 
 platform{
