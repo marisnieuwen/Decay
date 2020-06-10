@@ -1,77 +1,65 @@
+
 class Player {
-    
     private player : HTMLElement
     
-    private x: number = 0
-    private y: number = 0
-    private jumpy: number = 0
+    private x: number
+    private y: number 
 
-    //input
-    private downkey: number
-    private upkey: number
-    private rightkey: number
-    private leftkey: number
+    private downkey: number = 0
+    private upkey: number = 0
+    private rightkey: number = 0
+    private leftkey: number = 0
 
     private downSpeed: number = 0
     private upSpeed: number = 0
     private rightSpeed: number = 0
     private leftSpeed: number = 0 
 
-
-    private jumpHeight: number = -10
-    private jumping: boolean = false
-    private gravity: number = 0.2
-
     constructor(){
         //create player element
         this.player = document.createElement("player")
-        
-        // get game element and append player element to game
         let game = document.getElementsByTagName("game")[0]
         game.appendChild(this.player)
 
-        // set keys for contorl
+        //assign keys
         this.upkey = 38 
         this.downkey = 40
         this.rightkey = 39
         this.leftkey = 37
 
-        // set position on background
-        this.x = 370
-        this.y = 382
+        //temporary placement
+        this.x = 200
+        this.y = 200
 
-        // add event listeners
+        //key events
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 
-    //for collision
+    //get the boundaries from the image
     public getRectangle(){
-        return this.player.getBoundingClientRect()
+        return this.player.getBoundingClientRect() 
     }
 
-    //change the speed on keydown
+    //what happens when you push the assigned key
     private onKeyDown(e: KeyboardEvent): void {
         switch (e.keyCode) {
-            case this.upkey:    // jump with up key
-                if(!this.jumping) {
-                    this.jumping = true
-                    console.log("jumped")
-                    this.jumpy = this.jumpHeight
-                    }
+            case this.upkey:
+                this.upSpeed = 3.5
+                break
             case this.downkey:
-                this.downSpeed = 3
+                this.downSpeed = 3.5
                 break
             case this.rightkey:
-                this.rightSpeed = 3
+                this.rightSpeed = 3.5
                 break
             case this.leftkey:
-                this.leftSpeed = 3
+                this.leftSpeed = 3.5
                 break
         }
     }
 
-    // change the speed on key up
+    //what happens when you let the assigned key go
     private onKeyUp(e: KeyboardEvent): void {
         switch (e.keyCode) {
             case this.upkey:
@@ -86,37 +74,23 @@ class Player {
             case this.leftkey:
                 this.leftSpeed = 0
                 break
+        }
     }
 
-    // update player if there is movement
-    public update(){
-        // update y position
+
+    //movement of character
+    public move(){
         let newY = this.y - this.upSpeed + this.downSpeed
-        if (newY > 0 && newY + 100 < window.innerHeight) this.y = newY
+        if (newY > 0 && newY < window.innerHeight) this.y = newY
 
-
-        // update x posisition
         let newX = this.x - this.leftSpeed + this.rightSpeed
-        if (newX > 0 && newX + 100 < window.innerHeight) this.x = newX
+        if (newX > 0 && newX < window.innerWidth) this.x = newX
 
-
-        if (this.jumping) {
-            this.jumpy += this.gravity
-            this.y += this.jumpy
-        }
-        // checks if player is at bottom of screen
-        // (needs to change)
-        if (this.y >= window.innerHeight - this.player.clientHeight) {
-            this.jumping = false
-            this.jumpy = 0
-        }
-
-        // update player posisition
         this.player.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
-    // for collision
-    public update2(){
+    //stop the downwards movement 
+    public stopMove(){
         this.downSpeed = 0
     }
 }

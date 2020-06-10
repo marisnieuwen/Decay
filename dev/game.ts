@@ -1,38 +1,53 @@
 class Game{
 
-    // global variables
     private player : Player
     private platform : Platform[] = []
+    private worm : Worm[] = []
 
     constructor(){
-        // create platform
-        for (let i = 0; i < 1; i++) {
+
+        //create platforms
+        for (let i = 0; i < 7; i++) {
             this.platform.push(new Platform())
         }
 
-
-        // create player
+        //create player
         this.player = new Player()
 
+        //create worm
+        for (let i = 0; i < 1; i++){
+            this.worm.push(new Worm(i * 45, -47))
+        }
+
         this.gameloop()
-    }
-    
-    private gameloop(){
-            for (const platform of this.platform) {
-                platform.update()
-
-                //collision check and update
-                if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
-                    this.player.update2()
-                }
-            }
-
-
-        this.player.update()
 
         requestAnimationFrame(()=>this.gameloop())
     }
     
+    private gameloop(){
+
+        //what to do when there is collision between platforms and player
+        for (const platform of this.platform) {
+            platform.placement()
+            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())){
+                this.player.stopMove()
+            }
+        }
+
+        for (const worm of this.worm){
+            if(this.checkCollision(worm.getRectangle(), this.player.getRectangle())){
+                console.log("yoink")
+                worm.die()
+            }
+        }
+
+        //let the player move within the game
+        this.player.move()
+        
+        requestAnimationFrame(()=>this.gameloop())
+    }
+
+    //check collision
     private checkCollision(a: ClientRect, b: ClientRect) : boolean {
         return (a.left <= b.right &&
             b.left <= a.right &&
