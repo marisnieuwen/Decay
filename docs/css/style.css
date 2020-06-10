@@ -1,3 +1,23 @@
+
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    margin: 0px; padding: 0px;
+}
+
+/*background*/
+#background {
+    background-image: url();
+    background-repeat: repeat;
+}
+
+/*game*/
+game * {
+    position: absolute;
+    display: block;
+    margin: 0px; padding: 0px;
+=======
 body { 
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -9,12 +29,25 @@ game * {
     position: absolute;
     display: block;
     margin:0px; padding:0px;
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-}
 
-worm {
-    background-image: url(../images/worm.png);
-    width:64px; height:64px;
+/* player */
+
+player{
+    background-image: url(../images/player.png);
+    width: 28px; height: 40px;
     cursor: pointer;
 }
+
+/*worm*/
+
+worm{
+    background-image: url(../images/worm.png);
+    width: 36px; height: 48px;
+}
+
+/* platform */
+
+platform{
+    background-image: url(../images/plarform.png);
+    width: 54px; height: 9px;
+
