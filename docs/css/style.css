@@ -4,14 +4,14 @@ body{
     margin: 0px; padding: 0px;
 }
 
-/*background*/
+/* background */
 
 #background {
     background-image: url();
     background-repeat: repeat;
 }
 
-/*game*/
+/* game */
 
 game * {
     position: absolute;
@@ -34,7 +34,7 @@ player{
     cursor: pointer;
 }
 
-/*worm*/
+/* worm */
 
 worm{
     background-image: url(../images/worm.png);
