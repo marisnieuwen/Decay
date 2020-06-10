@@ -1,3 +1,4 @@
+
 class Worm {
     private worm : HTMLElement
     

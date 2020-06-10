@@ -138,4 +138,3 @@ class Worm {
         this.worm.remove();
     }
 }
-//# sourceMappingURL=main.js.map
