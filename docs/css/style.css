@@ -6,13 +6,13 @@ body{
 }
 
 /*background*/
-#background {
+#background{
     background-image: url();
     background-repeat: repeat;
 }
 
 /*game*/
-game * {
+game *{
     position: absolute;
     display: block;
     margin: 0px; padding: 0px;
@@ -21,7 +21,6 @@ game * {
 }
 
 /* player */
-
 player{
     background-image: url(../images/player.png);
     width: 28px; height: 40px;
@@ -29,21 +28,18 @@ player{
 }
 
 /*worm*/
-
 worm{
     background-image: url(../images/worm.png);
     width: 36px; height: 48px;
 }
 
 /*spit*/
-
 spit{
     background-image: url(../images/spitball.png);
     width: 16px; height: 16px;
 }
 
 /* platform */
-
 platform{
     background-image: url(../images/plarform.png);
     width: 54px; height: 9px;

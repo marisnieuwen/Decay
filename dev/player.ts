@@ -28,8 +28,8 @@ class Player {
         this.leftkey = 37
 
         //temporary placement
-        this.x = 200
-        this.y = 200
+        this.x = 400 
+        this.y = 300 
 
         //key events
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
@@ -94,6 +94,7 @@ class Player {
         this.downSpeed = 0
     }
 
+    //die for when hit (see class Game)
     public die(){
         this.player.remove()
     }

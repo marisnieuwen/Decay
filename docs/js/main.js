@@ -77,8 +77,8 @@ class Player {
         this.downkey = 40;
         this.rightkey = 39;
         this.leftkey = 37;
-        this.x = 200;
-        this.y = 200;
+        this.x = 400;
+        this.y = 300;
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
         window.addEventListener("keyup", (e) => this.onKeyUp(e));
     }
