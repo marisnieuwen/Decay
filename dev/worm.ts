@@ -16,6 +16,15 @@ class Worm {
         
         this.worm.style.transform = `translate(${this.x}px, ${this.y}px)`
     }   
+
+    //get the boundaries from the image
+    public getRectangle(){
+        return this.worm.getBoundingClientRect() 
+    }
+
+    public die(){
+        this.worm.remove()
+    }
     
         
 }

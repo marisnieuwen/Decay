@@ -1,10 +1,14 @@
 class Game {
     constructor() {
         this.platform = [];
+        this.worm = [];
         for (let i = 0; i < 7; i++) {
             this.platform.push(new Platform());
         }
         this.player = new Player();
+        for (let i = 0; i < 1; i++) {
+            this.worm.push(new Worm(i * 45, -47));
+        }
         this.gameloop();
     }
     gameloop() {
@@ -12,6 +16,12 @@ class Game {
             platform.placement();
             if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
                 this.player.stopMove();
+            }
+        }
+        for (const worm of this.worm) {
+            if (this.checkCollision(worm.getRectangle(), this.player.getRectangle())) {
+                console.log("yoink");
+                worm.die();
             }
         }
         this.player.move();
@@ -33,9 +43,6 @@ class Platform {
         game.appendChild(this.platform);
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
-        for (let i = 0; i < Math.random(); i++) {
-            this.worms.push(new Worm(i * this.x, i * this.y - 48));
-        }
     }
     get worm() { return this.worm; }
     getRectangle() {
@@ -123,6 +130,12 @@ class Worm {
         this.x = x;
         this.y = y;
         this.worm.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    }
+    getRectangle() {
+        return this.worm.getBoundingClientRect();
+    }
+    die() {
+        this.worm.remove();
     }
 }
 //# sourceMappingURL=main.js.map

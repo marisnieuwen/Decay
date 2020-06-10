@@ -38,7 +38,7 @@ class Player {
 
     //get the boundaries from the image
     public getRectangle(){
-        return this.player.getBoundingClientRect()
+        return this.player.getBoundingClientRect() 
     }
 
     //what happens when you push the assigned key
