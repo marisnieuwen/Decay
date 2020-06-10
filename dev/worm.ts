@@ -22,6 +22,7 @@ class Worm {
         return this.worm.getBoundingClientRect() 
     }
 
+    //make worm disappear
     public die(){
         this.worm.remove()
     }

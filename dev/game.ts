@@ -30,7 +30,7 @@ class Game{
     
     private gameloop(){
 
-        //what to do when there is collision between platforms and player
+        //what happens when there is collision between platforms and player
         for (const platform of this.platform) {
             platform.placement()
             if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())){
@@ -38,10 +38,18 @@ class Game{
             }
         }
 
+        //what happens when there is collision between player and worm
         for (const worm of this.worm){
             if(this.checkCollision(worm.getRectangle(), this.player.getRectangle())){
-                console.log("yoink")
                 worm.die()
+            }
+        }
+
+        //move spit and what happens when collision between player and spit
+        for (const spit of this.spit){
+            spit.move()
+            if(this.checkCollision(spit.getRectangle(), this.player.getRectangle())){
+                this.player.die()
             }
         }
 

@@ -12,10 +12,17 @@ class Spit{
         let worm = document.getElementsByTagName("worm")[0]
         worm.appendChild(this.spit)
 
+        this.x = x
+        this.y = y
+
         this.xspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10) 
         this.yspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10)
 
         this.move()
+    }
+
+    public getRectangle(){
+        return this.spit.getBoundingClientRect()
     }
 
     public move():void{

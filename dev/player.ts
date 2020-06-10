@@ -93,4 +93,8 @@ class Player {
     public stopMove(){
         this.downSpeed = 0
     }
+
+    public die(){
+        this.player.remove()
+    }
 }

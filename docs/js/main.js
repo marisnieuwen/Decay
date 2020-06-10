@@ -24,8 +24,13 @@ class Game {
         }
         for (const worm of this.worm) {
             if (this.checkCollision(worm.getRectangle(), this.player.getRectangle())) {
-                console.log("yoink");
                 worm.die();
+            }
+        }
+        for (const spit of this.spit) {
+            spit.move();
+            if (this.checkCollision(spit.getRectangle(), this.player.getRectangle())) {
+                this.player.die();
             }
         }
         this.player.move();
@@ -124,15 +129,23 @@ class Player {
     stopMove() {
         this.downSpeed = 0;
     }
+    die() {
+        this.player.remove();
+    }
 }
 class Spit {
     constructor(x, y) {
         this.spit = document.createElement("spit");
         let worm = document.getElementsByTagName("worm")[0];
         worm.appendChild(this.spit);
+        this.x = x;
+        this.y = y;
         this.xspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10);
         this.yspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10);
         this.move();
+    }
+    getRectangle() {
+        return this.spit.getBoundingClientRect();
     }
     move() {
         this.x += this.xspeed;
