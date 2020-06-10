@@ -28,6 +28,13 @@ player{
     cursor: pointer;
 }
 
+/*worm*/
+
+worm{
+    background-image: url(../images/worm.png);
+    width: 36px; height: 48px;
+}
+
 /* platform */
 
 platform{

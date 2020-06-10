@@ -4,6 +4,9 @@ class Platform {
     private x: number
     private y: number
 
+    private worms : Worm[] = []
+    
+    public get worm(): HTMLElement {return this.worm}
 
     constructor(){
         //create platforms
@@ -14,6 +17,11 @@ class Platform {
         //give x and y random values
         this.x = Math.random() * window.innerWidth
         this.y = Math.random() * window.innerHeight
+
+        //sommige platformen hebben wormen nodig
+        for (let i = 0; i < Math.random(); i++){
+            this.worms.push(new Worm(i * this.x, i * this.y -48))
+        }
     }
 
     //get the boundaries from the image

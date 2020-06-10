@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.platform = [];
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 7; i++) {
             this.platform.push(new Platform());
         }
         this.player = new Player();
@@ -27,12 +27,17 @@ class Game {
 window.addEventListener("load", () => new Game());
 class Platform {
     constructor() {
+        this.worms = [];
         this.platform = document.createElement("platform");
         let game = document.getElementsByTagName("game")[0];
         game.appendChild(this.platform);
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
+        for (let i = 0; i < Math.random(); i++) {
+            this.worms.push(new Worm(i * this.x, i * this.y - 48));
+        }
     }
+    get worm() { return this.worm; }
     getRectangle() {
         return this.platform.getBoundingClientRect();
     }
@@ -108,6 +113,16 @@ class Player {
     }
     stopMove() {
         this.downSpeed = 0;
+    }
+}
+class Worm {
+    constructor(x, y) {
+        this.worm = document.createElement("worm");
+        let platform = document.getElementsByTagName("platform")[0];
+        platform.appendChild(this.worm);
+        this.x = x;
+        this.y = y;
+        this.worm.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 }
 //# sourceMappingURL=main.js.map
