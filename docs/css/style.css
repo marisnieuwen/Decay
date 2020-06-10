@@ -1,0 +1,22 @@
+body {
+    background-color: #70CF51;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow:hidden;
+    margin:0px; padding:0px;
+}
+
+
+#background { 
+    background-image: url('../images/yeet.png');
+    background-repeat: repeat;
+}
+
+Background {
+    display: block;
+    position:absolute;
+    width:100px; height:100px;
+    box-sizing: border-box;
+    background-repeat: repeat;
+    background-image: url("../images/eersteyeet.jpeg");
+ }
+
