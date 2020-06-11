@@ -29,7 +29,7 @@ class backgroundScroller {
             background.y = newY;
         let posy = 0;
         let posx = 0;
-        CSS.style.transform = `translate(${posx}px, ${posy}px)`;
+        c.style.transform = `translate(${posx}px, ${posy}px)`;
         background.style.transform = `translate(${background.posx}px, ${background.posy}px)`;
     }
 }

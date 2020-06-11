@@ -36,7 +36,7 @@ class backgroundScroller{
 
       let posy = 0
       let posx = 0
-      c.style.transform = `translate(${posx}px, ${posy}px)`
+      background.transform = `translate(${posx}px, ${posy}px)`
   
       background.style.transform = `translate(${background.posx}px, ${background.posy}px)` 
   }
