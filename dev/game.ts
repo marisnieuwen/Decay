@@ -2,7 +2,7 @@
 class backgroundScroller{
   private gameloop(){
     
-      var Image = newImage("eersteBackground.jepg");
+      let Image = newImage("eersteBackground.jepg");
       let background = Image
       let newY = background.y + background.upSpeed - background.downSpeed
       if (newY > 0 && newY < window.innerHeight) background.y = newY
