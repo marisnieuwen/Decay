@@ -30,13 +30,13 @@ class Platform {
 class backgroundScroller{
   private gameloop(){
       
-      let background = URL["Eerstelevelconceptproject4,decay.jpeg"];
+      let background = URL["../images/eersteyeetjpeg"];
       let newY = background.y + background.upSpeed - background.downSpeed
       if (newY > 0 && newY < window.innerHeight) background.y = newY
 
       let posy = 0
       let posx = 0
-      CSS.style.transform = `translate(${posx}px, ${posy}px)`
+      c.style.transform = `translate(${posx}px, ${posy}px)`
   
       background.style.transform = `translate(${background.posx}px, ${background.posy}px)` 
   }
