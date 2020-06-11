@@ -5,13 +5,7 @@ body {
     margin:0px; padding:0px;
 }
 
-
-#background { 
-    background-image: url('../images/yeet.png');
-    background-repeat: repeat;
-}
-
-Background {
+#Background {
     display: block;
     position:absolute;
     width:100px; height:100px;
@@ -20,4 +14,7 @@ Background {
     background-image: url("../images/eersteyeet.jpeg");
  }
 
- 
+/* #background { 
+    background-image: url('background.png');
+    background-repeat: repeat;
+} */
