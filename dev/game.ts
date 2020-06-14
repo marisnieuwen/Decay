@@ -15,7 +15,7 @@ class Game{
     
     private gameLoop(){
 
-        this.player.update(); 
+        this.player.gravity(); 
         this.player.move()
  
 
@@ -30,6 +30,16 @@ class Game{
 
         console.log("Player raakt Platform ? " + Platformhit)
 
+        let PlatformRect = this.platform.getPlatformRectangle()
+        let PlayerRect = this.player.getFutureRectangle()
+ 
+        if(this.checkCollision(PlatformRect, PlayerRect)){
+           console.log("deze beweging mag niet, want de player zou dan in het platform bewegen")
+           this.player.stopMove();
+        } else {
+           this.player.update();  
+        }
+
 
         requestAnimationFrame(() => this.gameLoop())
     }
@@ -40,6 +50,7 @@ class Game{
             a.top <= b.bottom &&
             b.top <= a.bottom)
      }
+
      
 }
 

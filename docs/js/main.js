@@ -6,13 +6,22 @@ class Game {
         this.gameLoop();
     }
     gameLoop() {
-        this.player.update();
+        this.player.gravity();
         this.player.move();
         let Platformhit = this.checkCollision(this.player.getPlayerRectangle(), this.platform.getPlatformRectangle());
         if (Platformhit == true) {
             this.player.setSpeed(0);
         }
         console.log("Player raakt Platform ? " + Platformhit);
+        let PlatformRect = this.platform.getPlatformRectangle();
+        let PlayerRect = this.player.getFutureRectangle();
+        if (this.checkCollision(PlatformRect, PlayerRect)) {
+            console.log("deze beweging mag niet, want de player zou dan in het platform bewegen");
+            this.player.stopMove();
+        }
+        else {
+            this.player.update();
+        }
         requestAnimationFrame(() => this.gameLoop());
     }
     checkCollision(a, b) {
@@ -64,10 +73,14 @@ class Player {
     setSpeed(speed) {
         this.speed = speed;
     }
-    update() {
+    gravity() {
         this.y += this.speed;
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-        console.log("player is updated!");
+    }
+    getFutureRectangle() {
+        let rect = this.element.getBoundingClientRect();
+        rect.x += this.speed;
+        return rect;
     }
     getPlayerRectangle() {
         return this.element.getBoundingClientRect();
@@ -115,6 +128,9 @@ class Player {
     }
     stopMove() {
         this.downSpeed = 0;
+    }
+    update() {
+        this.x += this.speed;
     }
 }
 class Worm {
