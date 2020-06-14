@@ -44,11 +44,16 @@ class Player{
 
     }
 
-    public update() {
+    public gravity() {
         this.y += this.speed;
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
-        console.log("player is updated!")
     }
+
+    public getFutureRectangle(){
+        let rect = this.element.getBoundingClientRect()
+        rect.x += this.speed
+        return rect
+     }
 
     public getPlayerRectangle() {
         return this.element.getBoundingClientRect()
@@ -100,8 +105,11 @@ class Player{
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
     
-    //stop the downwards movement 
     public stopMove(){
         this.downSpeed = 0
+    }
+
+    public update(){
+        this.x += this.speed;
     }
 }
