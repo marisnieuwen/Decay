@@ -1,32 +1,19 @@
 class Game {
     constructor() {
-        this.platform = [];
         this.worm = [];
-        for (let i = 0; i < 7; i++) {
-            this.platform.push(new Platform());
-        }
+        this.platform = new Platform();
         this.player = new Player();
-        for (let i = 0; i < 1; i++) {
-            this.worm.push(new Worm(i * 45, -47));
-        }
-        this.gameloop();
-        requestAnimationFrame(() => this.gameloop());
+        this.gameLoop();
     }
-    gameloop() {
-        for (const platform of this.platform) {
-            platform.placement();
-            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
-                this.player.stopMove();
-            }
-        }
-        for (const worm of this.worm) {
-            if (this.checkCollision(worm.getRectangle(), this.player.getRectangle())) {
-                console.log("yoink");
-                worm.die();
-            }
-        }
+    gameLoop() {
+        this.player.update();
         this.player.move();
-        requestAnimationFrame(() => this.gameloop());
+        let Platformhit = this.checkCollision(this.player.getPlayerRectangle(), this.platform.getPlatformRectangle());
+        if (Platformhit == true) {
+            this.player.setSpeed(0);
+        }
+        console.log("Player raakt Platform ? " + Platformhit);
+        requestAnimationFrame(() => this.gameLoop());
     }
     checkCollision(a, b) {
         return (a.left <= b.right &&
@@ -38,45 +25,52 @@ class Game {
 window.addEventListener("load", () => new Game());
 class Platform {
     constructor() {
-        this.worms = [];
-        this.platform = document.createElement("platform");
+        this.x = 0;
+        this.y = 0;
+        this.element = document.createElement("platform");
         let game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.platform);
-        this.x = Math.random() * window.innerWidth;
-        this.y = Math.random() * window.innerHeight;
+        game.appendChild(this.element);
     }
-    get worm() { return this.worm; }
-    getRectangle() {
-        return this.platform.getBoundingClientRect();
-    }
-    placement() {
-        this.platform.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    getPlatformRectangle() {
+        return this.element.getBoundingClientRect();
     }
 }
 class Player {
     constructor() {
-        this.downkey = 0;
-        this.upkey = 0;
-        this.rightkey = 0;
-        this.leftkey = 0;
+        this.x = 0;
+        this.y = 0;
+        this.speed = 2;
         this.downSpeed = 0;
         this.upSpeed = 0;
         this.rightSpeed = 0;
         this.leftSpeed = 0;
-        this.player = document.createElement("player");
+        this.downkey = 0;
+        this.upkey = 0;
+        this.rightkey = 0;
+        this.leftkey = 0;
+        this.element = document.createElement("player");
         let game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.player);
+        game.appendChild(this.element);
         this.upkey = 38;
         this.downkey = 40;
         this.rightkey = 39;
         this.leftkey = 37;
-        this.x = 200;
-        this.y = 200;
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
         window.addEventListener("keyup", (e) => this.onKeyUp(e));
     }
-    getRectangle() {
-        return this.player.getBoundingClientRect();
+    getSpeed() {
+        return this.speed;
+    }
+    setSpeed(speed) {
+        this.speed = speed;
+    }
+    update() {
+        this.y += this.speed;
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        console.log("player is updated!");
+    }
+    getPlayerRectangle() {
+        return this.element.getBoundingClientRect();
     }
     onKeyDown(e) {
         switch (e.keyCode) {
@@ -117,7 +111,7 @@ class Player {
         let newX = this.x - this.leftSpeed + this.rightSpeed;
         if (newX > 0 && newX < window.innerWidth)
             this.x = newX;
-        this.player.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
     stopMove() {
         this.downSpeed = 0;
