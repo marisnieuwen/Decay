@@ -1,54 +1,40 @@
 class Game{
 
-    private player : Player
-    private platform : Platform[] = []
+    private platform : Platform;
     private worm : Worm[] = []
+    private player : Player;
+    private element : any;
 
-    constructor(){
+    constructor() {
+        this.platform = new Platform();
+        this.player = new Player();
 
-        //create platforms
-        for (let i = 0; i < 7; i++) {
-            this.platform.push(new Platform())
-        }
+        this.gameLoop();
 
-        //create player
-        this.player = new Player()
-
-        //create worm
-        for (let i = 0; i < 1; i++){
-            this.worm.push(new Worm(i * 45, -47))
-        }
-
-        this.gameloop()
-
-        requestAnimationFrame(()=>this.gameloop())
     }
     
-    private gameloop(){
+    private gameLoop(){
 
-        //what to do when there is collision between platforms and player
-        for (const platform of this.platform) {
-            platform.placement()
-            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())){
-                this.player.stopMove()
-            }
-        }
-
-        for (const worm of this.worm){
-            if(this.checkCollision(worm.getRectangle(), this.player.getRectangle())){
-                console.log("yoink")
-                worm.die()
-            }
-        }
-
-        //let the player move within the game
+        this.player.update(); 
         this.player.move()
-        
-        requestAnimationFrame(()=>this.gameloop())
+ 
+
+        //check for collision
+        let Platformhit = this.checkCollision(
+            this.player.getPlayerRectangle(),
+         this.platform.getPlatformRectangle()
+         );
+         if(Platformhit == true){
+            this.player.setSpeed(0);
+        }
+
+        console.log("Player raakt Platform ? " + Platformhit)
+
+
+        requestAnimationFrame(() => this.gameLoop())
     }
 
-    //check collision
-    private checkCollision(a: ClientRect, b: ClientRect) : boolean {
+    private checkCollision(a: ClientRect, b: ClientRect) {
         return (a.left <= b.right &&
             b.left <= a.right &&
             a.top <= b.bottom &&
