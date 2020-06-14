@@ -1,38 +1,36 @@
-class Player {
-    private player : HTMLElement
-    private div : HTMLElement
+class Player{
 
-    private _x: number = 0
-    private _y: number = 0
+    private x : number = 0;
+    private y : number = 0;
+
+    private speed: number = 2;
+    private downSpeed: number = 0
+    private upSpeed: number = 0
+    private rightSpeed: number = 0
+    private leftSpeed: number = 0
 
     private downkey: number = 0
     private upkey: number = 0
     private rightkey: number = 0
     private leftkey: number = 0
 
-    private downSpeed: number = 0
-    private upSpeed: number = 0
-    private rightSpeed: number = 0
-    private leftSpeed: number = 0 
+    private element : HTMLElement;
 
-    public get x(): number {
-        return this._x
-    }
-    public set x(value: number) {
-        this._x = value
-    }
-    public get y(): number {
-        return this._y
-    }
-    public set y(value: number) {
-        this._y = value
+
+    public getSpeed() : number {
+        return this.speed;
     }
 
-    constructor(){
-        //create player element
-        this.player = document.createElement("player")
-        let game = document.getElementsByTagName("game")[0]
-        game.appendChild(this.player)
+    public setSpeed(speed : number): void{
+        this.speed = speed;
+    }
+
+
+    constructor() {
+
+        this.element = document.createElement("player"); 
+        let game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.element);
 
         //assign keys
         this.upkey = 38 
@@ -40,18 +38,20 @@ class Player {
         this.rightkey = 39
         this.leftkey = 37
 
-        //temporary placement
-        this._x = 200
-        this._y = 200
-
         //key events
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
+
     }
 
-    //get the boundaries from the image
-    public getRectangle(){
-        return this.player.getBoundingClientRect() 
+    public update() {
+        this.y += this.speed;
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
+        console.log("player is updated!")
+    }
+
+    public getPlayerRectangle() {
+        return this.element.getBoundingClientRect()
     }
 
     //what happens when you push the assigned key
@@ -90,18 +90,16 @@ class Player {
         }
     }
 
-
-    //movement of character
     public move(){
-        let newY = this._y - this.upSpeed + this.downSpeed
-        if (newY > 0 && newY < window.innerHeight) this._y = newY
+        let newY = this.y - this.upSpeed + this.downSpeed
+        if (newY > 0 && newY < window.innerHeight) this.y = newY
 
-        let newX = this._x - this.leftSpeed + this.rightSpeed
-        if (newX > 0 && newX < window.innerWidth) this._x = newX
+        let newX = this.x - this.leftSpeed + this.rightSpeed
+        if (newX > 0 && newX < window.innerWidth) this.x = newX
 
-        this.player.style.transform = `translate(${this._x}px, ${this._y}px)`
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
-
+    
     //stop the downwards movement 
     public stopMove(){
         this.downSpeed = 0
