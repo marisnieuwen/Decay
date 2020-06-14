@@ -1,33 +1,19 @@
-class Platform {
-    private platform : HTMLElement
+class Platform{
 
-    public x: number
-    public y: number
+    private element : HTMLElement;
 
-    private worms : Worm[] = []
-    static x: number
-    static y: number
-    
-    public get worm(): HTMLElement {return this.worm}
+    private x : number = 0
+    private y : number = 0
 
     constructor(){
-        //create platforms
-        this.platform = document.createElement("platform")
-        let game = document.getElementsByTagName("game")[0]
-        game.appendChild(this.platform)
 
-        //give x and y random values
-        this.x = Math.random() * window.innerWidth
-        this.y = Math.random() * window.innerHeight
+        this.element = document.createElement("platform"); 
+        let game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.element);
+        
     }
 
-    //get the boundaries from the image
-    public getRectangle(){
-        return this.platform.getBoundingClientRect()
-    }
-
-    //place the platforms 
-    public placement(){
-        this.platform.style.transform = `translate(${this.x}px, ${this.y}px)`
+    public getPlatformRectangle() {
+        return this.element.getBoundingClientRect()
     }
 }
