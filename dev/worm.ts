@@ -19,7 +19,7 @@ class Worm {
     }   
 
     //get the boundaries from the image
-    public getRectangle(){
+    public getWormRectangle(){
         return this.worm.getBoundingClientRect() 
     }
 
