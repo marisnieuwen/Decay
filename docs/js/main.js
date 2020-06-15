@@ -1,31 +1,61 @@
+class Platform {
+    constructor() {
+        this.x = 0;
+        this.y = 0;
+        this.speed = 0;
+        this.worms = [];
+        this.element = document.createElement("platform");
+        let game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.element);
+        this.speed = Math.random() * 3 + 1;
+        this.x = this.x;
+        this.y = this.y;
+        for (let i = 0; i < Math.random() * 4; i++) {
+            this.worms.push(new Worm(i * 100 + 20, -60));
+        }
+    }
+    getPlatformRectangle() {
+        return this.element.getBoundingClientRect();
+    }
+}
 class Game {
     constructor() {
-        this.platform = [];
         this.worm = [];
-        for (let i = 0; i < 7; i++) {
-            this.platform.push(new Platform());
-        }
+        this.spit = [];
         this.player = new Player();
-        for (let i = 0; i < 1; i++) {
-            this.worm.push(new Worm(i * 45, -47));
-        }
-        this.gameloop();
+        this.platform = new Platform();
+        this.gameLoop();
     }
-    gameloop() {
-        for (const platform of this.platform) {
-            platform.placement();
-            if (this.checkCollision(platform.getRectangle(), this.player.getRectangle())) {
-                this.player.stopMove();
-            }
+    gameLoop() {
+        this.player.gravity();
+        this.player.move();
+        let Platformhit = this.checkCollision(this.player.getPlayerRectangle(), this.platform.getPlatformRectangle());
+        if (Platformhit == true) {
+            this.player.setSpeed(0);
+        }
+        console.log("Player raakt Platform ? " + Platformhit);
+        let PlatformRect = this.platform.getPlatformRectangle();
+        let PlayerRect = this.player.getFutureRectangle();
+        if (this.checkCollision(PlatformRect, PlayerRect)) {
+            console.log("deze beweging mag niet, want de player zou dan in het platform bewegen");
+            this.player.stopMove();
+        }
+        else {
+            this.player.updateSpeed();
         }
         for (const worm of this.worm) {
-            if (this.checkCollision(worm.getRectangle(), this.player.getRectangle())) {
-                console.log("yoink");
+            if (this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())) {
                 worm.die();
+                console.log("worm");
             }
         }
-        this.player.move();
-        requestAnimationFrame(() => this.gameloop());
+        for (const spit of this.spit) {
+            spit.move();
+            if (this.checkCollision(spit.getSpitRectangle(), this.player.getPlayerRectangle())) {
+                this.player.die();
+            }
+        }
+        requestAnimationFrame(() => this.gameLoop());
     }
     checkCollision(a, b) {
         return (a.left <= b.right &&
@@ -35,61 +65,63 @@ class Game {
     }
 }
 window.addEventListener("load", () => new Game());
-class Platform {
-    constructor() {
-        this.worms = [];
-        this.platform = document.createElement("platform");
-        let game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.platform);
-        this.x = Math.random() * window.innerWidth;
-        this.y = Math.random() * window.innerHeight;
-    }
-    get worm() { return this.worm; }
-    getRectangle() {
-        return this.platform.getBoundingClientRect();
-    }
-    placement() {
-        this.platform.style.transform = `translate(${this.x}px, ${this.y}px)`;
-    }
-}
 class Player {
     constructor() {
-        this.downkey = 0;
-        this.upkey = 0;
-        this.rightkey = 0;
-        this.leftkey = 0;
+        this.x = 0;
+        this.y = 0;
+        this.jumpy = 0;
+        this.speed = 2;
         this.downSpeed = 0;
         this.upSpeed = 0;
         this.rightSpeed = 0;
         this.leftSpeed = 0;
-        this.player = document.createElement("player");
+        this.downkey = 0;
+        this.upkey = 0;
+        this.rightkey = 0;
+        this.leftkey = 0;
+        this.jumpHeight = -10;
+        this.jumping = false;
+        this.jumpGravity = 0.2;
+        this.element = document.createElement("player");
         let game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.player);
+        game.appendChild(this.element);
         this.upkey = 38;
         this.downkey = 40;
         this.rightkey = 39;
         this.leftkey = 37;
-        this.x = 200;
-        this.y = 200;
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
         window.addEventListener("keyup", (e) => this.onKeyUp(e));
     }
-    getRectangle() {
-        return this.player.getBoundingClientRect();
+    getSpeed() { return this.speed; }
+    setSpeed(speed) { this.speed = speed; }
+    gravity() {
+        this.y += this.speed;
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    }
+    getFutureRectangle() {
+        let rect = this.element.getBoundingClientRect();
+        rect.x += this.speed;
+        return rect;
+    }
+    getPlayerRectangle() {
+        return this.element.getBoundingClientRect();
     }
     onKeyDown(e) {
         switch (e.keyCode) {
             case this.upkey:
-                this.upSpeed = 3.5;
-                break;
+                if (!this.jumping) {
+                    this.jumping = true;
+                    console.log("jumped");
+                    this.jumpy = this.jumpHeight;
+                }
             case this.downkey:
-                this.downSpeed = 3.5;
+                this.downSpeed = 3;
                 break;
             case this.rightkey:
-                this.rightSpeed = 3.5;
+                this.rightSpeed = 3;
                 break;
             case this.leftkey:
-                this.leftSpeed = 3.5;
+                this.leftSpeed = 3;
                 break;
         }
     }
@@ -116,10 +148,40 @@ class Player {
         let newX = this.x - this.leftSpeed + this.rightSpeed;
         if (newX > 0 && newX < window.innerWidth)
             this.x = newX;
-        this.player.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        if (this.jumping) {
+            this.jumpy += this.jumpGravity;
+            this.y += this.jumpy;
+        }
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
     stopMove() {
         this.downSpeed = 0;
+    }
+    updateSpeed() {
+        this.x += this.speed;
+    }
+    die() {
+        this.element.remove();
+    }
+}
+class Spit {
+    constructor(x, y) {
+        this.spit = document.createElement("spit");
+        let worm = document.getElementsByTagName("worm")[0];
+        worm.appendChild(this.spit);
+        this.x = x;
+        this.y = y;
+        this.xspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10);
+        this.yspeed = Math.floor(Math.random() * 10) || Math.floor(Math.random() * -10);
+        this.move();
+    }
+    getSpitRectangle() {
+        return this.spit.getBoundingClientRect();
+    }
+    move() {
+        this.x += this.xspeed;
+        this.y += this.yspeed;
+        this.spit.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 }
 class Worm {
@@ -131,7 +193,7 @@ class Worm {
         this.y = y;
         this.worm.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
-    getRectangle() {
+    getWormRectangle() {
         return this.worm.getBoundingClientRect();
     }
     die() {
