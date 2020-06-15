@@ -16,7 +16,7 @@ class Game{
     private gameLoop(){
 
         this.player.gravity(); 
-        this.player.move()
+        this.player.move();
  
 
         //check for collision

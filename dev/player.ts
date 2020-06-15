@@ -2,6 +2,7 @@ class Player{
 
     private x : number = 0;
     private y : number = 0;
+    private jumpy: number = 0
 
     private speed: number = 2;
     private downSpeed: number = 0
@@ -13,6 +14,10 @@ class Player{
     private upkey: number = 0
     private rightkey: number = 0
     private leftkey: number = 0
+
+    private jumpHeight: number = -10
+    private jumping: boolean = false
+    private jumpGravity: number = 0.2
 
     private element : HTMLElement;
 
@@ -59,25 +64,27 @@ class Player{
         return this.element.getBoundingClientRect()
     }
 
-    //what happens when you push the assigned key
     private onKeyDown(e: KeyboardEvent): void {
         switch (e.keyCode) {
-            case this.upkey:
-                this.upSpeed = 3.5
-                break
+            case this.upkey:    // jump with up key
+                if(!this.jumping) {
+                    this.jumping = true
+                    console.log("jumped")
+                    this.jumpy = this.jumpHeight
+                    }
             case this.downkey:
-                this.downSpeed = 3.5
+                this.downSpeed = 3
                 break
             case this.rightkey:
-                this.rightSpeed = 3.5
+                this.rightSpeed = 3
                 break
             case this.leftkey:
-                this.leftSpeed = 3.5
+                this.leftSpeed = 3
                 break
         }
     }
 
-    //what happens when you let the assigned key go
+    // change the speed on key up
     private onKeyUp(e: KeyboardEvent): void {
         switch (e.keyCode) {
             case this.upkey:
@@ -92,8 +99,10 @@ class Player{
             case this.leftkey:
                 this.leftSpeed = 0
                 break
-        }
     }
+}
+
+    // update player if there is movement
 
     public move(){
         let newY = this.y - this.upSpeed + this.downSpeed
@@ -101,6 +110,11 @@ class Player{
 
         let newX = this.x - this.leftSpeed + this.rightSpeed
         if (newX > 0 && newX < window.innerWidth) this.x = newX
+
+        if (this.jumping) {
+            this.jumpy += this.jumpGravity
+            this.y += this.jumpy
+        }
 
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
