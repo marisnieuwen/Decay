@@ -1,12 +1,12 @@
 class Platform{
 
+    //Fields
     private element : HTMLElement;
 
     private x : number = 0
     private y : number = 0
 
     private speed : number = 0
-
     private worms : Worm[] = []
 
 
@@ -21,7 +21,7 @@ class Platform{
         this.x = this.x
         this.y = this.y
 
-        for (let i = 0; i < Math.random() * 4; i++) {
+        for (let i = 0; i < Math.random() * 4; i++) { //zet wormen op platform
             this.worms.push(new Worm(i * 100 + 20, -60))
             
         }

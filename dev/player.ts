@@ -1,5 +1,6 @@
 class Player{
 
+    //Fields
     private x : number = 0;
     private y : number = 0;
     private jumpy: number = 0
@@ -21,14 +22,9 @@ class Player{
 
     private element : HTMLElement;
 
-
-    public getSpeed() : number {
-        return this.speed;
-    }
-
-    public setSpeed(speed : number): void{
-        this.speed = speed;
-    }
+    //Properties
+    public getSpeed() : number {return this.speed;}
+    public setSpeed(speed : number): void{this.speed = speed;}
 
 
     constructor() {
@@ -49,12 +45,12 @@ class Player{
 
     }
 
-    public gravity() {
+    public gravity() { //haalt player naar beneden
         this.y += this.speed;
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
-    public getFutureRectangle(){
+    public getFutureRectangle(){ //voor de collision detection platform (WERKT NIET?)
         let rect = this.element.getBoundingClientRect()
         rect.x += this.speed
         return rect
@@ -103,7 +99,6 @@ class Player{
 }
 
     // update player if there is movement
-
     public move(){
         let newY = this.y - this.upSpeed + this.downSpeed
         if (newY > 0 && newY < window.innerHeight) this.y = newY
@@ -123,7 +118,11 @@ class Player{
         this.downSpeed = 0
     }
 
-    public update(){
+    public updateSpeed(){
         this.x += this.speed;
+    }
+
+    public die(){
+        this.element.remove()
     }
 }

@@ -1,5 +1,7 @@
 
 class Worm {
+
+    //Fields
     private worm : HTMLElement
     
     private x : number
