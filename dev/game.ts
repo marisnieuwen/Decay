@@ -1,12 +1,14 @@
+
 /// <reference path="platform.ts"/>
 
-class Game{
+class Game {
 
     //Fields
-    private platform:Platform;
-    private player:Player;
-    private worm:Worm[] = []
-    private spit:Spit[] = [] //werk nog niet?
+    private platform: Platform;
+    private player: Player;
+    //private worms: Worm[] = []
+    private spit: Spit[] = [] //werk nog niet?
+    private ground: number = 500
 
     constructor() {
         this.player = new Player();
@@ -14,60 +16,52 @@ class Game{
 
         this.gameLoop();
     }
-    
-    private gameLoop(){
 
-        this.player.gravity(); 
-        this.player.move();
- 
-        //check for collision met platform
-        let Platformhit = this.checkCollision(
-            this.player.getPlayerRectangle(),
-         this.platform.getPlatformRectangle()
-         );
-         if(Platformhit == true){
-            this.player.setSpeed(0);
-        }
-
-        console.log("Player raakt Platform ? " + Platformhit) //console log voor controle collision platform
+    private gameLoop() {
 
         let PlatformRect = this.platform.getPlatformRectangle()
-        let PlayerRect = this.player.getFutureRectangle()
- 
-        if(this.checkCollision(PlatformRect, PlayerRect)){ //zou player moeten stoppen door platform te bewegen (WERKT NIET?)
-           console.log("deze beweging mag niet, want de player zou dan in het platform bewegen")
-           this.player.stopMove();
-        } else {
-           this.player.updateSpeed();  
-        }
+        let futurePlayerRect = this.player.getFutureRectangle()
 
-        //collision between player and worm (WERKT NIET?)
-        for (const worm of this.worm){
-            if(this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())){
-                worm.die()
+        //collision between player and worms of platform one - elk platform heeft eigen wormen
+        for (const worm of this.platform.worms) {
+            console.log(worm)
+            if (this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())) {
                 console.log("worm")
+                worm.die()
             }
         }
 
         //collision between player and spit (WERKT NIET?)
-        for (const spit of this.spit){
+        for (const spit of this.spit) {
             spit.move()
-            if(this.checkCollision(spit.getSpitRectangle(), this.player.getPlayerRectangle())){
+            if (this.checkCollision(spit.getSpitRectangle(), this.player.getPlayerRectangle())) {
                 this.player.die()
             }
         }
 
+        // COLLIDE GROUND / PLATFORM
+        if (this.checkBottomCollision(PlatformRect, futurePlayerRect) || futurePlayerRect.bottom > this.ground) { //zou player moeten stoppen door platform te bewegen (WERKT NIET?)
+            this.player.collideGround()
+        }
+        this.player.move()
+
         requestAnimationFrame(() => this.gameLoop())
     }
 
+    // check player platform bottom collision only
+    // probleem : je moet nog wel checken of je het platform links of rechts raakt!!
+    private checkBottomCollision(platform: ClientRect, player: ClientRect) { //check collision
+        return (platform.top <= player.bottom && player.top <= platform.bottom)
+    }
+    // check worm en spit collision
     private checkCollision(a: ClientRect, b: ClientRect) { //check collision
         return (a.left <= b.right &&
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom)
-     }
+    }
 
-     
+
 }
 
 window.addEventListener("load", () => new Game())

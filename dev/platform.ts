@@ -7,7 +7,7 @@ class Platform{
     private y : number = 0
 
     private speed : number = 0
-    private worms : Worm[] = []
+    public worms : Worm[] = [] // lelijk , kan mooier met getWorms()
 
 
 
