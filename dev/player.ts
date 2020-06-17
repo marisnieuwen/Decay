@@ -47,7 +47,7 @@ class Player {
     }
 
 
-    public getFutureRectangle() { //voor de collision detection platform (WERKT NIET?)
+    public getFutureRectangle() { //voor de collision detection platform
         let rect: DOMRect = this.element.getBoundingClientRect() as DOMRect
 
         rect.x = rect.x + this.leftSpeed - this.rightSpeed
