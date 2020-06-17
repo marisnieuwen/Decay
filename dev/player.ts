@@ -112,7 +112,7 @@ class Player {
     public move() {
 
         let newX = this.x - this.leftSpeed + this.rightSpeed
-        let newY = this.y //+ this.jumpGravity
+        let newY = this.y
 
         if (this.hitsGround == false) {
             this.jumpy += this.jumpGravity
