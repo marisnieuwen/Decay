@@ -20,33 +20,20 @@ class Platform {
 }
 class Game {
     constructor() {
-        this.worm = [];
         this.spit = [];
+        this.ground = 500;
         this.player = new Player();
         this.platform = new Platform();
         this.gameLoop();
     }
     gameLoop() {
-        this.player.gravity();
-        this.player.move();
-        let Platformhit = this.checkCollision(this.player.getPlayerRectangle(), this.platform.getPlatformRectangle());
-        if (Platformhit == true) {
-            this.player.setSpeed(0);
-        }
-        console.log("Player raakt Platform ? " + Platformhit);
         let PlatformRect = this.platform.getPlatformRectangle();
-        let PlayerRect = this.player.getFutureRectangle();
-        if (this.checkCollision(PlatformRect, PlayerRect)) {
-            console.log("deze beweging mag niet, want de player zou dan in het platform bewegen");
-            this.player.stopMove();
-        }
-        else {
-            this.player.updateSpeed();
-        }
-        for (const worm of this.worm) {
+        let futurePlayerRect = this.player.getFutureRectangle();
+        for (const worm of this.platform.worms) {
+            console.log(worm);
             if (this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())) {
-                worm.die();
                 console.log("worm");
+                worm.die();
             }
         }
         for (const spit of this.spit) {
@@ -55,7 +42,14 @@ class Game {
                 this.player.die();
             }
         }
+        if (this.checkBottomCollision(PlatformRect, futurePlayerRect) || futurePlayerRect.bottom > this.ground) {
+            this.player.collideGround();
+        }
+        this.player.move();
         requestAnimationFrame(() => this.gameLoop());
+    }
+    checkBottomCollision(platform, player) {
+        return (platform.top <= player.bottom && player.top <= platform.bottom);
     }
     checkCollision(a, b) {
         return (a.left <= b.right &&
@@ -70,6 +64,7 @@ class Player {
         this.x = 0;
         this.y = 0;
         this.jumpy = 0;
+        this.hitsGround = false;
         this.speed = 2;
         this.downSpeed = 0;
         this.upSpeed = 0;
@@ -94,13 +89,10 @@ class Player {
     }
     getSpeed() { return this.speed; }
     setSpeed(speed) { this.speed = speed; }
-    gravity() {
-        this.y += this.speed;
-        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-    }
     getFutureRectangle() {
         let rect = this.element.getBoundingClientRect();
-        rect.x += this.speed;
+        rect.x = rect.x + this.leftSpeed - this.rightSpeed;
+        rect.y = rect.y + this.downSpeed - this.upSpeed + this.jumpy;
         return rect;
     }
     getPlayerRectangle() {
@@ -109,8 +101,9 @@ class Player {
     onKeyDown(e) {
         switch (e.keyCode) {
             case this.upkey:
-                if (!this.jumping) {
+                if (!this.jumping && this.hitsGround) {
                     this.jumping = true;
+                    this.hitsGround = false;
                     console.log("jumped");
                     this.jumpy = this.jumpHeight;
                 }
@@ -141,24 +134,25 @@ class Player {
                 break;
         }
     }
+    collideGround() {
+        this.jumping = false;
+        this.jumpy = 0;
+        this.downSpeed = 0;
+        this.hitsGround = true;
+        console.log("collide");
+    }
     move() {
-        let newY = this.y - this.upSpeed + this.downSpeed;
-        if (newY > 0 && newY < window.innerHeight)
-            this.y = newY;
         let newX = this.x - this.leftSpeed + this.rightSpeed;
+        let newY = this.y;
+        if (this.hitsGround == false) {
+            this.jumpy += this.jumpGravity;
+            newY += this.jumpy;
+        }
         if (newX > 0 && newX < window.innerWidth)
             this.x = newX;
-        if (this.jumping) {
-            this.jumpy += this.jumpGravity;
-            this.y += this.jumpy;
-        }
+        if (newY > 0 && newY < window.innerHeight)
+            this.y = newY;
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-    }
-    stopMove() {
-        this.downSpeed = 0;
-    }
-    updateSpeed() {
-        this.x += this.speed;
     }
     die() {
         this.element.remove();
