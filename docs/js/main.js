@@ -21,7 +21,7 @@ class Platform {
 class Game {
     constructor() {
         this.spit = [];
-        this.ground = 500;
+        this.ground = 700;
         this.player = new Player();
         this.platform = new Platform();
         this.gameLoop();
@@ -49,7 +49,10 @@ class Game {
         requestAnimationFrame(() => this.gameLoop());
     }
     checkBottomCollision(platform, player) {
-        return (platform.top <= player.bottom && player.top <= platform.bottom);
+        return (platform.top <= player.bottom &&
+            player.top <= platform.bottom &&
+            platform.left <= player.right &&
+            player.left <= platform.right);
     }
     checkCollision(a, b) {
         return (a.left <= b.right &&
