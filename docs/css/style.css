@@ -1,7 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap');
+
 html, body {
     background-color: rgb(71, 212, 236);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: MuseoModerno, cursive;
     overflow:hidden;
     margin:0px; padding:0px;
 }
@@ -12,6 +14,9 @@ game * {
     margin:0px; padding:0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
+    color:white;
+    padding: 5px;
+    font-size: 25px;
 }
 
 platform {
