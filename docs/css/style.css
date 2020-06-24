@@ -45,3 +45,10 @@ player {
     width: 28px;
 }
 
+score *{
+    color: white;
+    background-color: black;
+    z-index: 999;
+    padding: 5px;
+} 
+

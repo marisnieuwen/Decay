@@ -9,6 +9,7 @@ class Game {
     //private worms: Worm[] = []
     private spit: Spit[] = [] //werk nog niet
     private ground: number = 700
+    private score : number = 0 
 
     constructor() {
         this.player = new Player();
@@ -28,6 +29,10 @@ class Game {
             if (this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())) {
                 console.log("worm")
                 worm.die()
+
+                let score = document.getElementsByTagName("score")[0]
+                 this.score++
+                 score.innerHTML = "Score: "+this.score
             }
         }
 
