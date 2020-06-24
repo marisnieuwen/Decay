@@ -22,6 +22,7 @@ class Game {
     constructor() {
         this.spit = [];
         this.ground = 700;
+        this.score = 0;
         this.player = new Player();
         this.platform = new Platform();
         this.gameLoop();
@@ -34,6 +35,9 @@ class Game {
             if (this.checkCollision(worm.getWormRectangle(), this.player.getPlayerRectangle())) {
                 console.log("worm");
                 worm.die();
+                let score = document.getElementsByTagName("score")[0];
+                this.score++;
+                score.innerHTML = "Score: " + this.score;
             }
         }
         for (const spit of this.spit) {
