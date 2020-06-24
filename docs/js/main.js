@@ -3,6 +3,7 @@ class Game {
         this.platform = [];
         this.worm = [];
         this.spit = [];
+        this.score = 0;
         for (let i = 0; i < 7; i++) {
             this.platform.push(new Platform());
         }
@@ -25,6 +26,9 @@ class Game {
         for (const worm of this.worm) {
             if (this.checkCollision(worm.getRectangle(), this.player.getRectangle())) {
                 worm.die();
+                let score = document.getElementsByTagName("score")[0];
+                this.score++;
+                score.innerHTML = "Score: " + this.score;
             }
         }
         for (const spit of this.spit) {
@@ -167,6 +171,7 @@ class Worm {
     }
     die() {
         this.worm.remove();
+        document.createElement("dead");
     }
 }
 //# sourceMappingURL=main.js.map

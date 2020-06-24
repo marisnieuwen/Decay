@@ -55,3 +55,10 @@ platform{
     background-image: url(../images/plarform.png);
     width: 54px; height: 9px;
 }
+
+score *{
+    color: white;
+    background-color: black;
+    z-index: 999;
+    padding: 5px;
+}

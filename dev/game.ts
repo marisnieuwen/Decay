@@ -4,6 +4,8 @@ class Game{
     private platform : Platform[] = []
     private worm : Worm[] = []
     private spit : Spit[] = []
+    //score
+    private score : number = 0
 
     constructor(){
 
@@ -42,6 +44,10 @@ class Game{
         for (const worm of this.worm){
             if(this.checkCollision(worm.getRectangle(), this.player.getRectangle())){
                 worm.die()
+                //score toevoegen
+                let score = document.getElementsByTagName("score")[0]
+                this.score++
+                score.innerHTML = "Score: "+this.score
             }
         }
 
